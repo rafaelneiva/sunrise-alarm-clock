@@ -12,8 +12,8 @@ import javax.inject.Inject
  */
 class SunriseApplication : Application(), HasActivityInjector {
 
-
-    @Inject lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
+    @Inject
+    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity>? {
         return dispatchingActivityInjector

@@ -2,6 +2,8 @@ package br.com.drmsolucoes.sunrisealarmclock.di.app
 
 import android.app.Application
 import br.com.drmsolucoes.sunrisealarmclock.SunriseApplication
+import br.com.drmsolucoes.sunrisealarmclock.di.builders.ActivityBuilder
+import br.com.drmsolucoes.sunrisealarmclock.di.builders.ViewModelBuilder
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -13,7 +15,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     AppModule::class,
-    AndroidSupportInjectionModule::class
+    AndroidSupportInjectionModule::class,
+    ViewModelBuilder::class,
+    ActivityBuilder::class
 ])
 interface AppComponent {
 
