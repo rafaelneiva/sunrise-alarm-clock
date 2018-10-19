@@ -6,7 +6,7 @@ import android.databinding.ObservableBoolean
 /**
  * Created by rafaelneiva on 12/06/18.
  */
-abstract class BaseViewModel<N> protected constructor() : ViewModel() {
+open class BaseViewModel<N> protected constructor() : ViewModel() {
 
     var showLoading = ObservableBoolean(false)
 

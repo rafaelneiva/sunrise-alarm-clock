@@ -1,5 +1,6 @@
 package br.com.drmsolucoes.sunrisealarmclock.di.builders
 
+import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import br.com.drmsolucoes.sunrisealarmclock.di.ViewModelKey
 import br.com.drmsolucoes.sunrisealarmclock.viewmodel.MainViewModel
@@ -19,7 +20,7 @@ abstract class ViewModelBuilder {
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel::class)
-    abstract fun bindMainViewModel(mainViewModel: MainViewModel)
+    abstract fun bindMainViewModel(mainViewModel: MainViewModel) : ViewModel
 
 
     // ViewModel Factory

@@ -1,10 +1,12 @@
 package br.com.drmsolucoes.sunrisealarmclock.viewmodel
 
+import javax.inject.Inject
+
 /**
  * Created by rafaelneiva on 12/06/18.
  */
-class MainViewModel() : BaseViewModel<MainNavigator>() {init {
-    navigator?.showToast()
-}
-
+class MainViewModel @Inject constructor() : BaseViewModel<MainNavigator>() {
+    init {
+        navigator?.showToast()
+    }
 }

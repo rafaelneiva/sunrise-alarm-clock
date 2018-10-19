@@ -1,6 +1,5 @@
 package br.com.drmsolucoes.sunrisealarmclock.view
 
-import android.app.Fragment
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -8,28 +7,26 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasFragmentInjector
+import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 /**
  * Created by rafaelneiva on 12/06/18.
  */
-abstract class BaseActivity<T : ViewDataBinding, V : ViewModel> : AppCompatActivity(), HasFragmentInjector {
+abstract class BaseActivity<T : ViewDataBinding, V : ViewModel> : AppCompatActivity(), HasSupportFragmentInjector {
 
-    private lateinit var mViewDataBinding: T
-    private lateinit var mViewModel: V
+    protected lateinit var mViewModel: V
+    protected lateinit var mDataBinding: T
 
     @Inject
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
-    override fun fragmentInjector(): AndroidInjector<Fragment> {
-        return fragmentDispatchingAndroidInjector
-    }
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentDispatchingAndroidInjector
 
     @Inject
     lateinit var mViewModelProvider: ViewModelProvider.Factory
@@ -37,29 +34,25 @@ abstract class BaseActivity<T : ViewDataBinding, V : ViewModel> : AppCompatActiv
     @LayoutRes
     protected abstract fun getLayoutId(): Int
 
-    protected abstract fun getViewModelClass(): KClass<V>?
+    protected abstract fun getViewModelClass(): Class<V>
 
-    protected abstract fun initView()
+    protected abstract fun init()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
 
-        mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
+        mDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
 
-        if (getViewModelClass() != null)
-            mViewModel = getViewModelClass()?.java?.let { ViewModelProviders.of(this, mViewModelProvider).get(it) }!!
+        mViewModel = ViewModelProviders.of(this, this.mViewModelProvider).get(getViewModelClass())
 
-        initView()
+        init()
     }
 
-    protected fun getBinding(): T {
-        return mViewDataBinding
-    }
+    fun getViewModel(): V = mViewModel
 
-    fun getViewModel(): V {
-        return mViewModel
-    }
+    fun getBinding(): T = mDataBinding
+
 
 }
