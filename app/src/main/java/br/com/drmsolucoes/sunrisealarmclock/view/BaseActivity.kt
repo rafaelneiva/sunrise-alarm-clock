@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import br.com.drmsolucoes.sunrisealarmclock.viewmodel.BaseViewModel
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -18,7 +19,7 @@ import javax.inject.Inject
 /**
  * Created by rafaelneiva on 12/06/18.
  */
-abstract class BaseActivity<T : ViewDataBinding, V : ViewModel> : AppCompatActivity(), HasSupportFragmentInjector {
+abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppCompatActivity(), HasSupportFragmentInjector {
 
     protected lateinit var mViewModel: V
     protected lateinit var mDataBinding: T
