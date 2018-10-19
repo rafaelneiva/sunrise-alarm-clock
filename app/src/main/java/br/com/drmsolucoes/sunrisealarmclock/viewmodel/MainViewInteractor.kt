@@ -1,5 +1,5 @@
 package br.com.drmsolucoes.sunrisealarmclock.viewmodel
 
-interface MainNavigator {
+interface MainViewInteractor {
     fun showToast()
 }

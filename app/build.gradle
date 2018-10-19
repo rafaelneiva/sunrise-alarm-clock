@@ -63,6 +63,6 @@ dependencies {
 
 gradle.projectsEvaluated {
     tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xmaxerrs" << "1200"
+        options.compilerArgs << "-Xmaxerrs" << "500"
     }
 }
