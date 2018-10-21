@@ -14,18 +14,17 @@ abstract class BaseCallback<T : Any> : Callback<T> {
 
     abstract fun onSuccess(response: T?)
 
-    abstract fun onError(error: BaseData)
+    abstract fun onError(error: BaseData<T>)
 
     override fun onResponse(call: Call<T>, response: Response<T>) {
         if (response.isSuccessful) {
             onSuccess(response.body())
         } else {
             try {
-                onError(Gson().fromJson(response.errorBody()!!.string(), BaseData::class.java))
+                onError(Gson().fromJson(response.errorBody()!!.string(), BaseData::class.java) as BaseData<T>)
             } catch (e: Exception) {
                 e.printStackTrace()
-                val errorResponse = BaseData()
-                errorResponse.message = e.message!!
+                val errorResponse = BaseData<T>(message = e.message)
                 onError(errorResponse)
             }
 
@@ -33,8 +32,7 @@ abstract class BaseCallback<T : Any> : Callback<T> {
     }
 
     override fun onFailure(call: Call<T>, t: Throwable) {
-        val response = BaseData()
-        response.message = t.message!!
+        val response = BaseData<T>(message = t.message)
         onError(response)
     }
 }
