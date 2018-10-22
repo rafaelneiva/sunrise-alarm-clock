@@ -18,16 +18,16 @@ class SunriseSunsetRepository @Inject constructor(apiClient: APIClient) {
 
     val sunriseSunsetAPI = apiClient.retrofit.create(SunriseSunsetAPI::class.java)
 
-    fun fetch(lat: String, lng: String, date: String): LiveData<BaseData<MainModel>> {
-        val data = MutableLiveData<BaseData<MainModel>>()
+    fun fetch(lat: String, lng: String, date: String): LiveData<BaseData<SunriseSunsetModel>> {
+        val data = MutableLiveData<BaseData<SunriseSunsetModel>>()
 
         sunriseSunsetAPI.fetch(lat, lng, date).enqueue(object: BaseCallback<BaseData<SunriseSunsetModel>>() {
-            override fun onError(error: BaseData<BaseData<SunriseSunsetModel>>) {
-
+            override fun onSuccess(response: BaseData<SunriseSunsetModel>?) {
+                data.value = response
             }
 
-            override fun onSuccess(response: BaseData<SunriseSunsetModel>?) {
-
+            override fun onError(error: BaseData<BaseData<SunriseSunsetModel>>) {
+                Log.e("REPO_CALL", error.message)
             }
         })
 

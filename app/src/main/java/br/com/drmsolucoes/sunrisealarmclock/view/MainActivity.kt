@@ -1,5 +1,6 @@
 package br.com.drmsolucoes.sunrisealarmclock.view
 
+import android.arch.lifecycle.Observer
 import android.widget.Toast
 import br.com.drmsolucoes.sunrisealarmclock.R
 import br.com.drmsolucoes.sunrisealarmclock.databinding.ActivityMainBinding
@@ -22,6 +23,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainVie
 
     override fun showToast() {
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
+
+        getViewModel().fetch("-18.9083814", "-48.2613538", "2018-06-12").observe(this, Observer {
+
+        })
     }
 
 }

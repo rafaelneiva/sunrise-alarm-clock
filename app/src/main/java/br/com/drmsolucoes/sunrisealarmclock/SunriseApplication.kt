@@ -14,6 +14,7 @@ import javax.inject.Inject
 class SunriseApplication : Application(), HasActivityInjector {
 
     companion object {
+        @get:Synchronized
         lateinit var instance: SunriseApplication
     }
 

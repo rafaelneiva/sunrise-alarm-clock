@@ -2,6 +2,8 @@ package br.com.drmsolucoes.sunrisealarmclock.di.app
 
 import android.app.Application
 import android.content.Context
+import br.com.drmsolucoes.sunrisealarmclock.SunriseApplication
+import br.com.drmsolucoes.sunrisealarmclock.service.APIClient
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,5 +18,11 @@ class AppModule {
     @Provides
     fun provideContext(app: Application): Context {
         return app.applicationContext
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiClient(app: Application): APIClient {
+        return (app as SunriseApplication).apiClient
     }
 }
