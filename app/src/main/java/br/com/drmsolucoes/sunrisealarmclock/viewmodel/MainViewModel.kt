@@ -1,6 +1,5 @@
 package br.com.drmsolucoes.sunrisealarmclock.viewmodel
 
-import android.arch.core.util.Function
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import br.com.drmsolucoes.sunrisealarmclock.domain.model.BaseData
@@ -14,7 +13,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(val repository: SunriseSunsetRepository) : BaseViewModel<MainViewInteractor>() {
 
     fun fetch(lat: String, lng: String, date: String): LiveData<BaseData<MainModel>> {
+        showLoading.set(true)
         return Transformations.map(repository.fetch(lat, lng, date)) { input ->
+            showLoading.set(false)
+
             val ret: BaseData<MainModel> = BaseData()
             var mainModel = MainModel()
 
