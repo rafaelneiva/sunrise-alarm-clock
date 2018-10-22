@@ -21,7 +21,8 @@
         app:msl_loadingLayout="@layout/msl_loading_layout"
         app:msl_state="@{viewModel.showLoading ? MultiStateLayout.State.LOADING : MultiStateLayout.State.CONTENT}">
 
-        <FrameLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -32,7 +33,10 @@
                 android:onClick="@{() -> viewModel.onClick()}"
                 android:text="Hello World!" />
 
-        </FrameLayout>
+            <include
+                layout="@layout/layout_alarm_day"/>
+
+        </LinearLayout>
 
     </br.com.zup.multistatelayout.MultiStateLayout>
 
